@@ -36,7 +36,7 @@ public class SyncDB {
         try {
             String messages = new AccessApi().sendGET(globals.urlMessages, params, values);
 //            parse JSON data
-            JSONObject
+//            JSONObject
         }catch (Exception e){
 //            TODO: catch exception
 

@@ -27,7 +27,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <include layout="@layout/ownmessage"></include>
+            <include layout="@layout/ownmessage"></include>
+            <include layout="@layout/yourmessage"></include>
+            <include layout="@layout/ownmessage"></include>
+            <include layout="@layout/yourmessage"></include>
+
+            </LinearLayout>
     </ScrollView>
     <include layout="@layout/attachments"></include>
 

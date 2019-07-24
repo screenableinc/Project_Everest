@@ -137,7 +137,7 @@ public class AccessApi {
                 result.append("&" + params[i]+"="+URLEncoder.encode(values[i],"UTF-8") );
             }
         }
-        Log.w("WWWWWWWW", result.toString());
+
         return result.toString();
     }
 }

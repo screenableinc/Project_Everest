@@ -10,6 +10,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="verification">We\'ve sent a verification code to your number, please enter it below </string>
+    <string name="message">This is a test message, everest is going to be big, i have a good feeling </string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions. If you are new to this please get yourself acquainted"

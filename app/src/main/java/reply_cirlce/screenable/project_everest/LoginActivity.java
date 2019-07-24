@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
 //        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
-//        startActivity(new Intent(LoginActivity.this,Verification.class));
+        startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
 //        ccp
         final CountryCodePicker ccp = (CountryCodePicker) findViewById(R.id.country);
