@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<reply_cirlce.screenable.project_everest.MessageBubble xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_message"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
+    android:longClickable="true"
     android:layout_marginStart="5dp"
+    android:layout_marginTop="15dp"
     android:layout_marginEnd="10dp"
     android:orientation="horizontal">
 
@@ -37,4 +39,4 @@
         android:text="19:34"
         android:textColor="@color/colorPrimary" />
 
-</LinearLayout>
+</reply_cirlce.screenable.project_everest.MessageBubble>
