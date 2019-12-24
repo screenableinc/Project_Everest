@@ -1,15 +1,16 @@
 package reply_cirlce.screenable.project_everest;
 
 public class Globals {
-    String TAG = "TAGEverest";
-    String SHARED_PREF_LOGIN = "at_login";
-    String ip="http://192.168.42.85:3000";
-    String urlJoin = ip+"/join";
-    String urlVerify = ip+"/verify";
-    String urlMessages = ip+"/users/messages";
-    String DATABASE_NAME = "everest01";
-    String ACCESS_TOKEN_KN = "access token";
-    String ID_KN = "verification code";
+    public static String TAG = "TAGEverest";
+    public static String SHARED_PREF_LOGIN = "at_login";
+    public static String ip="http://192.168.43.96:3001";
+    public static String urlJoin = ip+"/join";
+    public static String urlVerify = ip+"/verify";
+    public static String urlMessages = ip+"/users/messages";
+    public static String url_send_message=ip+"/messaging/send";
+    public static String DATABASE_NAME = "everest01";
+    public static String ACCESS_TOKEN_KN = "access token";
+    public static String ID_KN = "verification code";
 
 
 }

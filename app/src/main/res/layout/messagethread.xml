@@ -1,60 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
 
 
-    android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical"
-        android:weightSum="100"
-        android:layout_width="match_parent"
-
-        android:layout_height="match_parent">
-
-
-
-    <FrameLayout
-        android:id="@+id/header_section"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/privatechatheader"></include>
-
-    </FrameLayout>
-
-    <ScrollView
-        android:id="@+id/scroll_section"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header_section"
-
-        android:layout_weight="100">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/ownmessage"></include>
-            <include layout="@layout/ownmessage"></include>
-            <include layout="@layout/yourmessage"></include>
-            <include layout="@layout/ownmessage"></include>
-            <include layout="@layout/yourmessage"></include>
-
-            </LinearLayout>
-    </ScrollView>
-    <include layout="@layout/attachments"></include>
-
-    <FrameLayout
-        android:id="@+id/footer_section"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll_section">
-
-        <include layout="@layout/typeandsend"></include>
-
-    </FrameLayout>
-    </LinearLayout>
+    android:layout_height="match_parent"
+    >
 
     <FrameLayout
         android:id="@+id/overlay"
@@ -64,5 +15,74 @@
         android:background="@android:color/black"
         android:visibility="gone">
 
+
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:weightSum="100">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/header_section"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/privatechatheader"></include>
+
+        </FrameLayout>
+
+
+
+        <ScrollView
+            android:id="@+id/scroll_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_section"
+
+            android:layout_weight="100">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/ownmessage"></include>
+
+                <include layout="@layout/ownmessage"></include>
+
+                <include layout="@layout/yourmessage"></include>
+
+                <include layout="@layout/ownmessage"></include>
+
+                <include layout="@layout/yourmessage"></include>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <include
+            android:id="@+id/attach"
+            layout="@layout/attachments"
+            tools:visibility="gone"></include>
+        <FrameLayout
+            android:id="@+id/footer_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scroll_section">
+
+            <include layout="@layout/typeandsend"></include>
+
+        </FrameLayout>
+
+    </LinearLayout>
 </FrameLayout>

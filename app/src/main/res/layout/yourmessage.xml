@@ -29,11 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="1dp"
-            android:background="@drawable/yourmessage"
+            android:background="@drawable/other_message"
             android:minWidth="120dp"
-            android:padding="20dp"
+            android:padding="10dp"
             android:text="@string/message"
-            android:textColor="@android:color/background_light" />
+            android:textColor="#BC000000" />
 
     </LinearLayout>
 
