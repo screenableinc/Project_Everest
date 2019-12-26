@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.bartoszlipinski.flippablestackview:library:1.2.1'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'link.fls:swipestack:0.3.0'
 
     implementation 'com.hbb20:ccp:2.2.3'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'

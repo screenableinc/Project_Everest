@@ -17,12 +17,13 @@
             android:paddingStart="10dp">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+                android:id="@+id/search"
                 android:layout_width="268dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:hint="Search ..."
+                android:singleLine="true"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -38,13 +39,13 @@
             android:layout_height="match_parent" />
 
         <com.github.ybq.android.spinkit.SpinKitView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/spin_kit"
+            android:id="@+id/search_indicator"
             style="@style/SpinKitView.DoubleBounce"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
 
+            android:visibility="gone"
             app:SpinKit_Color="@color/colorAccent" />
     </FrameLayout>
 

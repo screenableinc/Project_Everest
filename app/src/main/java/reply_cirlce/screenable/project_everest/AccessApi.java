@@ -78,29 +78,33 @@ public class AccessApi {
     public String sendGET(String url, String[] parameters, String[] values) throws Exception {
 
         String queryString = GenQueryString(parameters, values);
-        URL obj = new URL(url+"?"+queryString);
+        URL obj = new URL(url+"/?"+queryString);
 
         conn = (HttpURLConnection) obj.openConnection();
+
 
         // Acts like a browser
         conn.setUseCaches(false);
         conn.setRequestMethod("GET");
 
-        conn.setRequestProperty("User-Agent", "Android app");
+        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36");
         conn.setRequestProperty("Accept",
                 "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
         conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
         conn.setConnectTimeout(5000);
+
 //        for (String cookie : this.cookies) {
 //            conn.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
 //        }
-        conn.setRequestProperty("Connection", "keep-alive");
+//        conn.setRequestProperty("Connection", "keep-alive");
         conn.setRequestProperty("Referer", url);
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
 
-        conn.setDoOutput(true);
+
+        conn.setDoOutput(false);
         conn.setDoInput(true);
+
 
 
         int responseCode = conn.getResponseCode();
@@ -115,6 +119,7 @@ public class AccessApi {
             response.append(inputLine);
         }
         in.close();
+        conn.disconnect();
         // System.out.println(response.toString());
 
         return response.toString();
