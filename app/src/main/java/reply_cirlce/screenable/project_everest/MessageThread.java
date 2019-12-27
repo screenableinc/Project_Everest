@@ -4,16 +4,24 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MessageThread extends AppCompatActivity {
 
@@ -26,6 +34,30 @@ public class MessageThread extends AppCompatActivity {
         final View attach = findViewById(R.id.attach);
         final EditText message = findViewById(R.id.editText);
         View send = findViewById(R.id.send);
+        RecyclerView rv = (RecyclerView) findViewById(R.id.dynamicchatview);
+        PickerLayoutManager pickerLayoutManager = new PickerLayoutManager(this, PickerLayoutManager.HORIZONTAL, false);
+        pickerLayoutManager.setChangeAlpha(true);
+        pickerLayoutManager.setScaleDownBy(0.99f);
+        pickerLayoutManager.setScaleDownDistance(0.8f);
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("https://randomuser.me/api/portraits/med/women/67.jpg");
+        list.add("https://randomuser.me/api/portraits/med/women/66.jpg");
+        list.add("https://randomuser.me/api/portraits/med/women/65.jpg");
+
+        DynamicChatAdapter adapter = new DynamicChatAdapter(this,list);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(rv);
+        rv.setLayoutManager(pickerLayoutManager);
+        rv.setAdapter(adapter);
+
+        pickerLayoutManager.setOnScrollStopListener(new PickerLayoutManager.onScrollStopListener() {
+            @Override
+            public void selectedView(View view) {
+//                Toast.makeText(this, ("Selected value : "+((TextView) view).getText().toString()), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:longClickable="true"
+    android:elevation="3dp"
     android:layout_marginStart="5dp"
     android:layout_marginTop="15dp"
     android:layout_marginEnd="10dp"

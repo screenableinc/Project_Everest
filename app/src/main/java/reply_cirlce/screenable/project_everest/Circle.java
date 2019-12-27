@@ -15,19 +15,27 @@ import android.widget.FrameLayout;
 
 import com.bartoszlipinski.flippablestackview.FlippableStackView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import link.fls.swipestack.SwipeStack;
+
 public class Circle extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
 
-        myPagerAdapter mStackAdapter = new myPagerAdapter(getContext(),2);
-        Log.w("TAG","message created");
 
         View rootView = inflater.inflate(R.layout.circle, container, false);
-        FlippableStackView stack = (FlippableStackView) rootView.findViewById(R.id.stack);
-        stack.initStack(1);
-        stack.setAdapter(mStackAdapter);
+        SwipeStack swipeStack = (SwipeStack) rootView.findViewById(R.id.swipeStack);
+        List<String> mData=new ArrayList<>();
+        mData.add("http://www.screenableinc.com/everest/0.jpg");
+        mData.add("http://www.screenableinc.com/everest/1.jpg");
+        mData.add("http://www.screenableinc.com/everest/2.jpg");
+        mData.add("http://www.screenableinc.com/everest/3.jpg");
+        swipeStack.setAdapter(new ChapterVIewAdapter(mData,getActivity()));
+
 
 
         return rootView;

@@ -13,14 +13,14 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:padding="1dp">
-            <com.bartoszlipinski.flippablestackview.FlippableStackView
-                android:id="@+id/stack"
+            android:clipChildren="false"
+            android:layout_height="250dp">
+            <link.fls.swipestack.SwipeStack
+                android:id="@+id/swipeStack"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:padding="32dp"/>
+
         </FrameLayout>
-
-
     </LinearLayout>
 </FrameLayout>

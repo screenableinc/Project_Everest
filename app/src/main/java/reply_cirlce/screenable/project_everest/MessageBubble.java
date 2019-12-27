@@ -50,7 +50,7 @@ public class MessageBubble extends LinearLayout {
         GestureDetector.OnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
             @Override
             public void onLongPress(MotionEvent e) {
-                final FrameLayout overlay = rootView.findViewById(R.id.overlay);
+//                final FrameLayout overlay = rootView.findViewById(R.id.overlay);
                 final FrameLayout scrollview = rootView.findViewById(R.id.scroll_section);
 
                 scrollview.setOnTouchListener(new OnTouchListener() {
@@ -59,7 +59,7 @@ public class MessageBubble extends LinearLayout {
                         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
 //                            FrameLayout  overlay=rootView.findViewById(R.id.overlay);
 
-                            overlay.setVisibility(GONE);
+//                            overlay.setVisibility(GONE);
                             scrollview.setOnTouchListener(null);
                             return false;
                         } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
@@ -67,7 +67,7 @@ public class MessageBubble extends LinearLayout {
                             tview.animate().x(motionEvent.getX()).y(motionEvent.getY()).setDuration(300).start();
                             return true;
                         } else {
-                            overlay.setVisibility(GONE);
+//                            overlay.setVisibility(GONE);
                             scrollview.setOnTouchListener(null);
                         }
 
@@ -77,13 +77,13 @@ public class MessageBubble extends LinearLayout {
                 });
 //                scrollview.remove
 
-                overlay.setVisibility(VISIBLE);
-                overlay.removeAllViews();
-
-
-                overlay.addView(tview);
-
-                Log.w("TOUCHLISTEN", overlay.toString());
+//                overlay.setVisibility(VISIBLE);
+//                overlay.removeAllViews();
+//
+//
+//                overlay.addView(tview);
+//
+//                Log.w("TOUCHLISTEN", overlay.toString());
             }
         };
 
