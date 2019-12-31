@@ -17,6 +17,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vanniktech.emoji.EmojiEditText;
+import com.vanniktech.emoji.EmojiPopup;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,6 +32,15 @@ public class MessageThread extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messagethread);
+
+//        start emoji keyboard code
+        EmojiEditText emojiEditText = findViewById(R.id.editText);
+
+        final EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(getLayoutInflater().inflate(R.layout.messagethread,null)).build(emojiEditText);
+        emojiPopup.toggle(); // Toggles visibility of the Popup.
+        emojiPopup.dismiss(); // Dismisses the Popup.
+        emojiPopup.isShowing(); // Returns true when Popup is showing.
+
         final View my_message = findViewById(R.id.my_message);
         ImageView insert = findViewById(R.id.insert);
         final View attach = findViewById(R.id.attach);

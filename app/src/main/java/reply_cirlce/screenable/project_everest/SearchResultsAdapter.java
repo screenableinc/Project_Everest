@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,6 +29,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     ArrayList <JSONObject> items;
     Context context;
     Activity activity;
+
     ItemClickListener mClickListener;
     LayoutInflater mInflater;
     public SearchResultsAdapter(Activity context, ArrayList<JSONObject> items){
@@ -74,6 +77,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         CircleImageView circleImageView;
         TextView name;
         TextView username;
+        ImageView add;
+//        TODO remember to show diffrent icons for already added user
 
         View nameandusername;
         ViewHolder(View itemView){
@@ -83,39 +88,54 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             nameandusername = itemView.findViewById(R.id.nameandusername);
             name = (TextView) itemView.findViewById(R.id.name);
             username=(TextView) itemView.findViewById(R.id.username);
+            add=itemView.findViewById(R.id.addtocircle);
             nameandusername.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
 //            TODO::remember to filter this and add support for add
+            if (view.getId() == R.id.addtocircle) {
 
-            Intent intent = new Intent(context,Profile.class);
+//                TODO::when you wake up put this in separet function
+//                new AsyncTask<String,Integer,String>(){
+//
+//                    @Override
+//                    protected String doInBackground(String... strings) {
+//                        String[] param={"follower"};String[] value={strings[0]};
+//                        AccessApi accessApi = new AccessApi().sendGET(Globals.urlAddToCircle,)
+//
+//                    }
+//                }.execute();
+            } else {
+
+                Intent intent = new Intent(context, Profile.class);
 //            pass username, name,profile_pic_url so as to parse data on this side
-            String tag = view.getTag().toString();
-            String pic_url;
-            String _username;
-            String _name;
-            try {
-                JSONObject data = new JSONObject(tag);
-                Log.w(Globals.TAG,"should show "+view.toString()+data);
-                pic_url=data.getString("profile_picture_url_lg");
+                String tag = view.getTag().toString();
+                String pic_url;
+                String _username;
+                String _name;
+                try {
+                    JSONObject data = new JSONObject(tag);
+                    Log.w(Globals.TAG, "should show " + view.toString() + data);
+                    pic_url = data.getString("profile_picture_url_lg");
 
-                _username = data.getString("UserID");
-                _name = data.getString("fullname");
-                intent.putExtra("UserID",_name);
-                intent.putExtra("profile_pic_url_lg",pic_url);
-                intent.putExtra("fullname",_username);
-            }catch (JSONException e){
-                e.printStackTrace();
+                    _username = data.getString("UserID");
+                    _name = data.getString("fullname");
+                    intent.putExtra("UserID", _username);
+                    intent.putExtra("profile_pic_url_lg", pic_url);
+                    intent.putExtra("fullname", _name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, Pair.create((View) name, "fullname"), Pair.create((View) username, "username"));
+                activity.startActivity(intent, options.toBundle());
+
+
+                if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
             }
-
-
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, Pair.create((View) name,"fullname"),Pair.create((View)username,"username"));
-            activity.startActivity(intent,options.toBundle());
-
-
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
     String getItem(int id) {

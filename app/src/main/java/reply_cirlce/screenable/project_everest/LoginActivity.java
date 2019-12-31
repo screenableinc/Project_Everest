@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.text.emoji.EmojiCompat;
+import android.support.text.emoji.FontRequestEmojiCompatConfig;
+import android.support.v4.provider.FontRequest;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -35,6 +38,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbb20.CountryCodePicker;
+import com.vanniktech.emoji.EmojiManager;
+import com.vanniktech.emoji.ios.IosEmojiProvider;
 
 import org.json.JSONObject;
 
@@ -75,10 +80,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+//        Emoji support
+        EmojiManager.install(new IosEmojiProvider());
+
+//        final FontRequest fontRequest = new FontRequest(
+//                "com.google.android.gms.fonts",
+//                "com.google.android.gms",
+//                "Noto Color Emoji Compat",
+//                R.array.com_google_android_gms_fonts_certs);
+//        final EmojiCompat.Config config = new
+//                FontRequestEmojiCompatConfig(getApplicationContext(), fontRequest);
+//        EmojiCompat.init(config);
+
+
         // Set up the login form.
 //        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
-        startActivity(new Intent(LoginActivity.this,MessageThread.class));
+        startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
 //        ccp
         final CountryCodePicker ccp = (CountryCodePicker) findViewById(R.id.country);

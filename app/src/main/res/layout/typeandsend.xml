@@ -30,12 +30,12 @@
 
             app:srcCompat="@drawable/add" />
 
-        <EditText
+        <com.vanniktech.emoji.EmojiEditText
             android:id="@+id/editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-
+            android:imeOptions="actionSend"
             android:layout_marginLeft="5dp"
             android:layout_weight="100"
             android:background="@drawable/edit_bg"

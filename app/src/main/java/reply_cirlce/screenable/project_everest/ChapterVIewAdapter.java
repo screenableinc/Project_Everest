@@ -38,7 +38,7 @@ public class ChapterVIewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        convertView = mInflater.inflate(R.layout.chapter_holder, parent, false);
+        convertView = mInflater.inflate(R.layout.chapterstack, parent, false);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.page);
         String url = mData.get(position);
         Picasso.get().load(url).into(imageView);
