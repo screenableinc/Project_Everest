@@ -51,24 +51,40 @@
             android:layout_marginTop="70dp"
             android:orientation="vertical">
 
-            <com.hbb20.CountryCodePicker
-                android:id="@+id/country"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="40dp"
-                android:background="@drawable/loginbackground" />
-
             <EditText
-                android:id="@+id/number"
+                android:id="@+id/fullname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="40dp"
+                android:textAlignment="center"
                 android:background="@drawable/loginbackground"
-                android:hint="phone"
-                android:inputType="phone"
+                android:hint="Full Name" />
 
-                android:padding="5dp"
-                android:textAlignment="center" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/loginbackground"
+                    android:hint="username"
+                    android:inputType="text"
+
+                    android:padding="5dp"
+                    android:textAlignment="center" />
+
+                <ImageView
+                    android:id="@+id/error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/error" />
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -80,13 +96,13 @@
         android:visibility="gone" />
 
     <Button
-        android:id="@+id/email_sign_in_button"
+        android:id="@+id/finalize"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/newgradient"
-        android:text="@string/action_sign_in"
+        android:text="Continue"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 </LinearLayout>

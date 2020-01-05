@@ -33,10 +33,10 @@ public class Circle extends Fragment {
         View rootView = inflater.inflate(R.layout.circle, container, false);
         SwipeStack swipeStack = (SwipeStack) rootView.findViewById(R.id.swipeStack);
         List<String> mData=new ArrayList<>();
-        mData.add("http://www.screenableinc.com/everest/179.jpg");
-        mData.add("http://www.screenableinc.com/everest/120.jpg");
-        mData.add("http://www.screenableinc.com/everest/420.jpg");
-        mData.add("http://www.screenableinc.com/everest/300.jpg");
+        mData.add("http://www.screenableinc.com/everest/100.jpg");
+        mData.add("http://www.screenableinc.com/everest/123.jpg");
+        mData.add("http://www.screenableinc.com/everest/427.jpg");
+        mData.add("http://www.screenableinc.com/everest/399.jpg");
 
         swipeStack.setAdapter(new ChapterVIewAdapter(mData,getActivity()));
 

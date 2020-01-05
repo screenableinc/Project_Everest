@@ -59,6 +59,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             viewHolder.name.setText(name);
             viewHolder.username.setText(username);
             viewHolder.nameandusername.setTag(items.get(i).toString());
+            viewHolder.add.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_circle_add));
             Picasso.get().load(profile_picture_url).into(viewHolder.circleImageView);
 
 
@@ -97,16 +98,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 //            TODO::remember to filter this and add support for add
             if (view.getId() == R.id.addtocircle) {
 
-//                TODO::when you wake up put this in separet function
-//                new AsyncTask<String,Integer,String>(){
 //
-//                    @Override
-//                    protected String doInBackground(String... strings) {
-//                        String[] param={"follower"};String[] value={strings[0]};
-//                        AccessApi accessApi = new AccessApi().sendGET(Globals.urlAddToCircle,)
-//
-//                    }
-//                }.execute();
             } else {
 
                 Intent intent = new Intent(context, Profile.class);

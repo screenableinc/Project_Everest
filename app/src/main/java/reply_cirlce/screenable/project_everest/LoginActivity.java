@@ -3,6 +3,7 @@ package reply_cirlce.screenable.project_everest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -25,6 +26,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private ProgressBar progressBar;
     private Button mEmailSignInButton;
+    ImageView logo;
 
 
     @Override
@@ -82,7 +86,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
 //        Emoji support
         EmojiManager.install(new IosEmojiProvider());
+        String status = getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE).getString("stage","");
+        Log.w(Globals.TAG,status+"okay");
+        if(status.equals("verification")){
+            startActivity(new Intent(LoginActivity.this, Verification.class));
 
+        }else if(status.equals("setup")){
+            startActivity(new Intent(LoginActivity.this, SetUp.class));
+
+
+        }else if(status.equals("loggedin")){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+        }
+
+        logo=findViewById(R.id.logo);
 //        final FontRequest fontRequest = new FontRequest(
 //                "com.google.android.gms.fonts",
 //                "com.google.android.gms",
@@ -96,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
 //        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
-        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+//        startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
 //        ccp
         final CountryCodePicker ccp = (CountryCodePicker) findViewById(R.id.country);
@@ -167,8 +185,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin(String number) {
-        String credentials = "{\"number\":"+number+",\"verificationCode\":"+genVerificationCode()+"}";
-        new UserLoginTask().execute(credentials);
+        String gencode = genVerificationCode();
+        String credentials = "{\"number\":"+number+",\"verificationCode\":"+gencode+"}";
+        new UserLoginTask().execute(credentials,number,gencode);
         
 
 
@@ -304,14 +323,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 response = new JSONObject(accessApi);
                 if(response.getInt("code")==1){
 //                    successful join, store number in sharedpref and go to verify screen
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(globals.SHARED_PREF_LOGIN,MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("stage","verification");
-                    editor.putString("number",params[0]);
-//                    editor.putString(globals.VERIFICATION_CODE_KN,pa)
+                    editor.putString("number",params[1]);
+
+                    editor.putString("verification_code",params[2]);
                     editor.commit();
-                    startActivity(new Intent(LoginActivity.this, Verification.Verify.class));
-                    finish();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, logo, getResources().getResourceName(R.string.logo_trans_name));
+
+                            startActivity(new Intent(LoginActivity.this, Verification.class),options.toBundle());
+
+
+                        }
+                    });
+
 
 
                 }else if(response.getInt("code")==0){
@@ -330,6 +359,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Log.w(globals.TAG,accessApi);
             }catch (Exception e){
 //                handle network/connection  errors
+                e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

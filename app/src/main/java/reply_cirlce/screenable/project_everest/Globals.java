@@ -9,6 +9,7 @@ public class Globals {
     public static String urlMessages = ip+"/users/messages";
     public static String urlAddToCircle = ip+"/users/add/connection";
     public static String urlSearch = ip+"/users/search";
+    public static String urlFinalize = ip+"/finalize";
     public static String urlCanvas = ip+"/users/canvas";
     public static String url_send_message=ip+"/messaging/send";
     public static String DATABASE_NAME = "everest01";
