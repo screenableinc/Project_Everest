@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final Globals globals = new Globals();
+//    public static final Globals globals = new Globals();
     public static final int version = 2;
 
 //    table creation
@@ -43,7 +43,13 @@ private static final String SQL_CREATE_TABLE_MESSAGES =
 
                     FeedReaderContract.FeedEntry.PARTICIPATION_COUNT + " INTEGER)";
 
+    private static final String SQL_CREATE_TABLE_CONNECTIONS=
+            "CREATE TABLE " + FeedReaderContract.FeedEntry.CANVAS_TABLE_NAME + " (" +
 
+                    FeedReaderContract.FeedEntry.FOLLOWER + " TEXT," +
+
+
+                    FeedReaderContract.FeedEntry.FOLLOWING + " TEXT)";
 
     private static final String SQL_CREATE_TABLE_CANVAS =
             "CREATE TABLE " + FeedReaderContract.FeedEntry.CANVAS_TABLE_NAME + " (" +
@@ -66,7 +72,7 @@ private static final String SQL_CREATE_TABLE_MESSAGES =
 
 
     public DatabaseHelper(Context context) {
-        super(context, globals.DATABASE_NAME, null, version);
+        super(context, Globals.DATABASE_NAME, null, version);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -74,6 +80,7 @@ private static final String SQL_CREATE_TABLE_MESSAGES =
         db.execSQL(SQL_CREATE_TABLE_MESSAGES);
         db.execSQL(SQL_CREATE_TABLE_CANVAS);
         db.execSQL(SQL_CREATE_TABLE_CHAT);
+        db.execSQL(SQL_CREATE_TABLE_CONNECTIONS);
     }
 
     @Override

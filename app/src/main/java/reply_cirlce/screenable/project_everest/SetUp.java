@@ -77,6 +77,7 @@ public class SetUp extends AppCompatActivity {
                     editor.putString("stage","loggedin");
                     editor.putString("username",u_name);
                     editor.commit();
+//                    send another request to get connections
 
                     runOnUiThread(new Runnable() {
                         @Override

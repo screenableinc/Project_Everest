@@ -2,10 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
 
 
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,68 +16,173 @@
         android:weightSum="100">
 
 
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/dynamicchatview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:clipToPadding="false"
-                android:paddingLeft="183dp"
-                android:paddingRight="183dp" />
-
-
-        <FrameLayout
-            android:id="@+id/header_section"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/privatechatheader"></include>
-
-        </FrameLayout>
-
-
-        <ScrollView
-            android:id="@+id/scroll_section"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_section"
+            android:elevation="3dp"
+            android:orientation="vertical">
 
-            android:layout_weight="100"
-            android:background="@color/cum">
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_menu" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"
+                android:orientation="vertical"
+                >
 
-                <include layout="@layout/ownmessage"></include>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/dynamicchatview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:clipToPadding="false"
+                    android:paddingLeft="183dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="183dp" />
 
-                <include layout="@layout/ownmessage"></include>
-
-                <include layout="@layout/yourmessage"></include>
-
-                <include layout="@layout/ownmessage"></include>
-
-                <include layout="@layout/yourmessage"></include>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/arapey"
+                    android:text="@string/app_name"
+                    android:textColor="#FA111111"
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
-        </ScrollView>
 
-        <include
-            android:id="@+id/attach"
-            layout="@layout/attachments"
-            tools:visibility="gone"></include>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/messages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="100" />
+
+<!--        <include-->
+<!--            android:id="@+id/attach"-->
+<!--            layout="@layout/attachments"-->
+<!--            tools:visibility="gone"></include>-->
         <FrameLayout
             android:id="@+id/footer_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/scroll_section">
 
-            <include layout="@layout/typeandsend"></include>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorPrimaryDark">
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/typemessage_bg"
+                android:minHeight="60dp"
+
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="100">
+
+                <ImageView
+                    android:id="@+id/insert"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+
+                    app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+
+                <LinearLayout
+                    android:id="@+id/non_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_weight=".5"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/ic_mic_none_black_24dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_weight=".5"
+                        app:srcCompat="@drawable/ic_picture" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100">
+
+                    <android.support.text.emoji.widget.EmojiEditText
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="100"
+                        android:background="@drawable/edit_bg"
+                        android:ems="10"
+                        android:imeOptions="actionSend"
+                        android:inputType="textMultiLine|textPersonName"
+                        android:maxHeight="300dp"
+                        android:minHeight="45dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="3dp"
+                        android:paddingRight="3dp"
+                        android:paddingBottom="3dp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                    <FrameLayout
+                        android:id="@+id/send"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center|end"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight=".3"
+                        android:background="@drawable/sendbtnbg"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="match_parent"
+                            app:srcCompat="@drawable/ic_send_black_24dp" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/imageView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_insert_emoticon_black_24dp" />
+
+
+            </LinearLayout>
 
         </FrameLayout>
 

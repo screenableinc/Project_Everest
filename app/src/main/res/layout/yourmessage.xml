@@ -33,7 +33,7 @@
             android:minWidth="120dp"
             android:padding="10dp"
             android:text="@string/message"
-            android:textColor="#BC000000" />
+            android:textColor="#F5F5F5" />
 
     </LinearLayout>
 

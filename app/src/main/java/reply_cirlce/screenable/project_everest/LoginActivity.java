@@ -41,8 +41,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbb20.CountryCodePicker;
-import com.vanniktech.emoji.EmojiManager;
-import com.vanniktech.emoji.ios.IosEmojiProvider;
+//import com.vanniktech.emoji.EmojiManager;
+//import com.vanniktech.emoji.ios.IosEmojiProvider;
 
 import org.json.JSONObject;
 
@@ -83,11 +83,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
 //        Emoji support
-        EmojiManager.install(new IosEmojiProvider());
+
+        FontRequest fontRequest = new FontRequest(
+                "com.google.android.gms.fonts",
+                "com.google.android.gms",
+                "Noto Color Emoji Compat",
+                R.array.com_google_android_gms_fonts_certs);
+
+        EmojiCompat.Config config = new FontRequestEmojiCompatConfig(this,fontRequest);
+        EmojiCompat.init(config);
+
+//        startActivity(new Intent(LoginActivity.this,MessageThread.class));
+//        finish();
+
+
         String status = getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE).getString("stage","");
-        Log.w(Globals.TAG,status+"okay");
+
         if(status.equals("verification")){
             startActivity(new Intent(LoginActivity.this, Verification.class));
 
@@ -97,8 +110,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         }else if(status.equals("loggedin")){
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
 
         }
+        setContentView(R.layout.activity_login);
 
         logo=findViewById(R.id.logo);
 //        final FontRequest fontRequest = new FontRequest(

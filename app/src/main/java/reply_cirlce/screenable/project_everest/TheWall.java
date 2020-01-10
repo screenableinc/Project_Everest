@@ -1,6 +1,6 @@
 package reply_cirlce.screenable.project_everest;
 
-import android.accounts.NetworkErrorException;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,88 +9,75 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
 
-import com.github.ybq.android.spinkit.SpinKitView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import link.fls.swipestack.SwipeStack;
+
 
 public class TheWall extends Fragment {
+    ArrayList<String> following=new ArrayList<>();
     RecyclerView recyclerView;
-    SpinKitView search_indicator;
-    SearchResultsAdapter adapter;
-    ArrayList<JSONObject> items = new ArrayList<>();
-
+    TheWallAdapter adapter;
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-//        live audio and video broadcasts
 
-        final View rootView = inflater.inflate(R.layout.thewall, container, false);
-        recyclerView = rootView.findViewById(R.id.search_results);
-        final AutoCompleteTextView search = rootView.findViewById(R.id.search);
-        search.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(keyEvent.getKeyCode()==KeyEvent.KEYCODE_ENTER && keyEvent.getAction()==KeyEvent.ACTION_UP){
-//                    search
-                    search_indicator = rootView.findViewById(R.id.search_indicator);
-                    Log.w(Globals.TAG,"hit");
-                    new Search().execute(search.getText().toString());
-                }
-                return false;
-            }
-        });
+
+        View rootView = inflater.inflate(R.layout.thewall, container, false);
+        recyclerView= rootView.findViewById(R.id.wall);
+        new LoadWall().execute();
+//        SwipeStack swipeStack = (SwipeStack) rootView.findViewById(R.id.swipeStack);
+//        List<String> mData=new ArrayList<>();
+//        mData.add("http://www.screenableinc.com/everest/10.jpg");
+//        mData.add("http://www.screenableinc.com/everest/602.jpg");
+//        mData.add("http://www.screenableinc.com/everest/601.jpg");
+//        mData.add("http://www.screenableinc.com/everest/600.jpg");
+//
+//        swipeStack.setAdapter(new ChapterVIewAdapter(mData,getActivity()));
 
 
 
         return rootView;
 
     }
-    public class Search extends AsyncTask<String,Integer,String>{
-        @Override
-        protected void onPreExecute() {
-            search_indicator.setVisibility(View.VISIBLE);
-            super.onPreExecute();
-        }
-
+    public class LoadWall extends AsyncTask<String, Integer,String>{
         @Override
         protected String doInBackground(String... strings) {
-            String[] param={"qs"};String[] value={strings[0]};
+//            steps(for now
+            String userID = getContext().getSharedPreferences(Globals.SHARED_PREF_LOGIN, Context.MODE_PRIVATE).getString(Globals.USERID_KN,"");
+            Log.w(Globals.TAG,"reached here ");
             try {
-                String accessApi = new AccessApi().sendGET(Globals.urlSearch, param, value);
-                JSONObject response = new JSONObject(accessApi);
-                JSONArray results = response.getJSONArray("data");
-                for (int i = 0; i < results.length(); i++) {
-                    Log.w(Globals.TAG, results.getJSONObject(i).toString());
-                    items.add(results.getJSONObject(i));
+                String connections = new HelperFunctions(getContext()).GetConnections("followedby", userID);
+                JSONArray array = new JSONObject(connections).getJSONArray("data");
+                Log.w(Globals.TAG,"reached "+connections);
+                for (int i = 0; i < array.length() ; i++) {
+                    String f = array.getJSONObject(i).getString("following");
+                    following.add(f);
                 }
-                Log.w(Globals.TAG,"here"+accessApi);
-            }catch (NetworkErrorException e){
-//                shpwerror network
 
             }catch (Exception e){
-                Log.w(Globals.TAG,e);
+
+                e.printStackTrace();
             }
+
             return null;
         }
 
         @Override
         protected void onPostExecute(String s) {
-            search_indicator.setVisibility(View.GONE);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            adapter=new SearchResultsAdapter(getActivity(),items);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            adapter=new TheWallAdapter(getContext(),following);
             recyclerView.setAdapter(adapter);
-
         }
     }
 }

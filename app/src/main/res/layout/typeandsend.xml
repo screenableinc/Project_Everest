@@ -2,73 +2,114 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/nontext"
     android:layout_height="wrap_content">
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/colorPrimaryDark">
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1px"-->
+<!--        android:background="@color/colorPrimaryDark">-->
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/typemessage_bg"
-        android:minHeight="60dp"
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@drawable/typemessage_bg"-->
+<!--        android:minHeight="60dp"-->
 
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:weightSum="100">
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="10dp"-->
+<!--        android:weightSum="100">-->
 
-        <ImageView
-            android:id="@+id/insert"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_gravity="center"
+<!--        <ImageView-->
+<!--            android:id="@+id/insert"-->
+<!--            android:layout_width="28dp"-->
+<!--            android:layout_height="28dp"-->
+<!--            android:layout_gravity="center"-->
 
-            app:srcCompat="@drawable/add" />
+<!--            app:srcCompat="@drawable/ic_chevron_right_black_24dp" />-->
 
-        <com.vanniktech.emoji.EmojiEditText
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:imeOptions="actionSend"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="100"
-            android:background="@drawable/edit_bg"
-            android:ems="10"
-            android:hint="Type message here..."
-            android:inputType="textMultiLine|textPersonName"
-            android:maxHeight="300dp"
-            android:minHeight="45dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="3dp"
-            android:paddingRight="3dp"
-            android:paddingBottom="3dp"
-            android:singleLine="false"
-            android:textColor="@android:color/black"
-            android:textSize="14sp" />
+<!--        <LinearLayout-->
+<!--            android:id="@+id/attachments"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="horizontal">-->
 
-        <FrameLayout
-            android:id="@+id/send"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/sendbtnbg"
-            android:padding="5dp">
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView14"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_weight=".5"-->
+<!--                app:srcCompat="@drawable/ic_mic_none_black_24dp" />-->
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView3"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_weight=".5"-->
+<!--                app:srcCompat="@drawable/ic_picture" />-->
+<!--        </LinearLayout>-->
 
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_send_black_24dp" />
-        </FrameLayout>
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="100">-->
+
+<!--            <android.support.text.emoji.widget.EmojiEditText-->
+<!--                android:id="@+id/editText"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:layout_weight="100"-->
+<!--                android:background="@drawable/edit_bg"-->
+<!--                android:ems="10"-->
+<!--                android:imeOptions="actionSend"-->
+<!--                android:inputType="textMultiLine|textPersonName"-->
+<!--                android:maxHeight="300dp"-->
+<!--                android:minHeight="45dp"-->
+<!--                android:paddingLeft="5dp"-->
+<!--                android:paddingTop="3dp"-->
+<!--                android:paddingRight="3dp"-->
+<!--                android:paddingBottom="3dp"-->
+<!--                android:singleLine="false"-->
+<!--                android:text=""-->
+<!--                android:textColor="@android:color/black"-->
+<!--                android:textSize="14sp" />-->
+
+<!--            <FrameLayout-->
+<!--                android:id="@+id/send"-->
+<!--                android:layout_width="28dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:layout_gravity="center|end"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:layout_marginEnd="5dp"-->
+<!--                android:layout_weight=".3"-->
+<!--                android:background="@drawable/sendbtnbg"-->
+<!--                android:padding="5dp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imageView2"-->
+<!--                    android:layout_width="match_parent"-->
+
+<!--                    android:layout_height="match_parent"-->
+<!--                    app:srcCompat="@drawable/ic_send_black_24dp" />-->
+<!--            </FrameLayout>-->
+<!--        </FrameLayout>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView15"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_weight="1"-->
+<!--            app:srcCompat="@drawable/ic_insert_emoticon_black_24dp" />-->
 
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 </FrameLayout>

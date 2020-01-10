@@ -19,6 +19,10 @@ public class FeedReaderContract {
         public static final String TIME_RECEIVED="time_received";
         public static final String STATUS = "status";
         public static final String TYPE="type";
+        public static final String FOLLOWER="follower";
+        public static final String FOLLOWING="following";
+        public static final String CONNECTIONS_TABLE="connections";
+
 
         public static final String FROM = "from";
 

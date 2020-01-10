@@ -54,6 +54,9 @@
         <service
             android:name=".Misc"
             android:exported="false" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
     <meta-data
         android:name="fontProviderRequests"

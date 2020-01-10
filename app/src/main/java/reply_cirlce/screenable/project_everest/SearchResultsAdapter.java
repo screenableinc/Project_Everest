@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -29,7 +30,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
     ArrayList <JSONObject> items;
     Context context;
     Activity activity;
-
+    String _ID="";
     ItemClickListener mClickListener;
     LayoutInflater mInflater;
     public SearchResultsAdapter(Activity context, ArrayList<JSONObject> items){
@@ -37,6 +38,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         mInflater = LayoutInflater.from(context.getApplicationContext());
         this.items=items;
         this.activity=context;
+//        shared preference to get userID
+        _ID=context.getSharedPreferences(Globals.SHARED_PREF_LOGIN,Context.MODE_PRIVATE).getString(Globals.USERID_KN,"");
 
     }
 
@@ -55,10 +58,12 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             JSONObject object = (JSONObject) items.get(i);
             String username = object.getString("UserID");
             String name = object.getString("fullname");
+
             String profile_picture_url = object.getString("profile_picture_url_md");
             viewHolder.name.setText(name);
             viewHolder.username.setText(username);
             viewHolder.nameandusername.setTag(items.get(i).toString());
+            viewHolder.add.setTag(username);
             viewHolder.add.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_circle_add));
             Picasso.get().load(profile_picture_url).into(viewHolder.circleImageView);
 
@@ -82,6 +87,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 //        TODO remember to show diffrent icons for already added user
 
         View nameandusername;
+        SpinKitView spinKitView;
         ViewHolder(View itemView){
             super(itemView);
 
@@ -90,14 +96,18 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             name = (TextView) itemView.findViewById(R.id.name);
             username=(TextView) itemView.findViewById(R.id.username);
             add=itemView.findViewById(R.id.addtocircle);
-            nameandusername.setOnClickListener(this);
+            spinKitView=itemView.findViewById(R.id.search_indicator);
+            nameandusername.setOnClickListener(this);add.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-//            TODO::remember to filter this and add support for add
-            if (view.getId() == R.id.addtocircle) {
 
+//
+            if (view.getId() == R.id.addtocircle) {
+                Log.w(Globals.TAG,"statr");
+
+                new HelperFunctions(context).new AddToCircle(add,spinKitView).execute(view.getTag().toString(),_ID);
 //
             } else {
 

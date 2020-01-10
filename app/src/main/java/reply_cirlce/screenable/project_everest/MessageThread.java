@@ -1,7 +1,10 @@
 package reply_cirlce.screenable.project_everest;
 
+import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
+import android.support.text.emoji.widget.EmojiEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearSnapHelper;
@@ -10,15 +13,18 @@ import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vanniktech.emoji.EmojiEditText;
-import com.vanniktech.emoji.EmojiPopup;
+//import com.vanniktech.emoji.EmojiEditText;
+//import com.vanniktech.emoji.EmojiPopup;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,16 +40,13 @@ public class MessageThread extends AppCompatActivity {
         setContentView(R.layout.messagethread);
 
 //        start emoji keyboard code
-        EmojiEditText emojiEditText = findViewById(R.id.editText);
+//        EmojiEditText emojiEditText = findViewById(R.id.editText);
 
-        final EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(getLayoutInflater().inflate(R.layout.messagethread,null)).build(emojiEditText);
-        emojiPopup.toggle(); // Toggles visibility of the Popup.
-        emojiPopup.dismiss(); // Dismisses the Popup.
-        emojiPopup.isShowing(); // Returns true when Popup is showing.
+
 
         final View my_message = findViewById(R.id.my_message);
-        ImageView insert = findViewById(R.id.insert);
-        final View attach = findViewById(R.id.attach);
+        final ImageView insert = findViewById(R.id.insert);
+//        final View attach = findViewById(R.id.attach);
         final EditText message = findViewById(R.id.editText);
         View send = findViewById(R.id.send);
         RecyclerView rv = (RecyclerView) findViewById(R.id.dynamicchatview);
@@ -55,6 +58,9 @@ public class MessageThread extends AppCompatActivity {
         list.add("https://randomuser.me/api/portraits/med/women/67.jpg");
         list.add("https://randomuser.me/api/portraits/med/women/66.jpg");
         list.add("https://randomuser.me/api/portraits/med/women/65.jpg");
+        final View nontext = (LinearLayout) findViewById(R.id.non_text);
+
+
 
         DynamicChatAdapter adapter = new DynamicChatAdapter(this,list);
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -96,15 +102,19 @@ public class MessageThread extends AppCompatActivity {
                 }
             }
         });
+        View rootView = findViewById(R.id.root);
+//        final EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(rootView).build(emojiEditText);
+
         insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(attach.getVisibility()==View.VISIBLE){
-                    attach.setVisibility(View.GONE);
-                }else {
-                    attach.setVisibility(View.VISIBLE);
-                }
+//                view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_attach));
+
+            animateShowAttachments(nontext, view);
+
+
+
             }
         });
 
@@ -122,6 +132,29 @@ public class MessageThread extends AppCompatActivity {
 //        message thread animations
 
 
+    }
+    private void animateShowAttachments(final View view, View chevron){
+        int toWidth;
+        int animFile;
+        if(view.getLayoutParams().width==0){
+            toWidth=120;
+            animFile=R.anim.rotate_attach;
+        }else {
+            toWidth=0;
+            animFile=R.anim.rotate_attach_to_init;
+        }
+        final ValueAnimator widthAnimator = ValueAnimator.ofInt(view.getWidth(), toWidth);
+        widthAnimator.setDuration(200);
+        widthAnimator.setInterpolator(new DecelerateInterpolator());
+        widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                view.getLayoutParams().width = (int) animation.getAnimatedValue();
+                view.requestLayout();
+            }
+        });
+        chevron.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),animFile));
+        widthAnimator.start();
     }
     private static class SendMessage extends AsyncTask<String[],Integer,String>{
 

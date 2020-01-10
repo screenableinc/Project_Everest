@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <stroke android:color="@color/bg_mine" android:width="1dp"></stroke>
-
-    <corners android:topLeftRadius="3dp" android:bottomLeftRadius="10dp" android:bottomRightRadius="3dp" android:topRightRadius="10dp"></corners>
+<!--    <stroke android:color="@color/bg_mine" android:width="1dp"></stroke>-->
+    <solid android:color="@color/bg_chat"></solid>
+    <corners android:topLeftRadius="3dp" android:bottomLeftRadius="20dp" android:bottomRightRadius="3dp" android:topRightRadius="20dp"></corners>
 
 </shape>
