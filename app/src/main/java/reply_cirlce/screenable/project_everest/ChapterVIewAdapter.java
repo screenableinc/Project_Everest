@@ -1,7 +1,6 @@
 package reply_cirlce.screenable.project_everest;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class ChapterVIewAdapter extends RecyclerView.Adapter<ChapterVIewAdapter.ViewHolder> {
+public class ChapterVIewAdapter extends BaseAdapter {
     private List<JSONObject> mData;
     private LayoutInflater mInflater;
     public ChapterVIewAdapter(List<JSONObject> data, Context context) {
@@ -28,17 +27,13 @@ public class ChapterVIewAdapter extends RecyclerView.Adapter<ChapterVIewAdapter.
     }
 
     @Override
-    public int getItemCount() {
+    public int getCount() {
         return mData.size();
     }
 
-
-
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.chapterstack,viewGroup, false);
-        return new ViewHolder(view);
+    public String getItem(int position) {
+        return mData.get(position).toString();
     }
 
     @Override
@@ -47,47 +42,23 @@ public class ChapterVIewAdapter extends RecyclerView.Adapter<ChapterVIewAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+        if(convertView==null){
+            convertView = mInflater.inflate(R.layout.chapterstack,parent, false);
+        }
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.page);
         try {
-            Log.w(Globals.TAG,"yeah "+mData.get(i).toString());
+            Log.w(Globals.TAG,"yeah "+mData.get(position).toString());
 
 
-            String url = mData.get(i).getString("media_url_high");
-            Picasso.get().load(url).into(viewHolder.imageView);
+            String url = mData.get(position).getString("media_url_high");
+            Picasso.get().load(url).into(imageView);
         }catch (Exception e){
             e.printStackTrace();
         }
+        return convertView;
     }
 
-//    @Override
-//    public View getView(final int position, View convertView, ViewGroup parent) {
-//
-//        if(convertView==null){
-//            convertView = mInflater.inflate(R.layout.chapterstack,parent, false);
-//        }
-//        ImageView imageView = (ImageView) convertView.findViewById(R.id.page);
-//        try {
-//            Log.w(Globals.TAG,"yeah "+mData.get(position).toString());
-//
-//
-//            String url = mData.get(position).getString("media_url_high");
-//            Picasso.get().load(url).into(imageView);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return convertView;
-//    }
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView imageView;
-        public ViewHolder(View itemView){
-            super(itemView);
-            imageView=itemView.findViewById(R.id.page);
-        }
-
-        @Override
-        public void onClick(View view) {
-
-        }
-    }
 
 }

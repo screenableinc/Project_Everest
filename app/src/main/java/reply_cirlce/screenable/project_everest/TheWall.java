@@ -57,7 +57,7 @@ public class TheWall extends Fragment {
             String userID = getContext().getSharedPreferences(Globals.SHARED_PREF_LOGIN, Context.MODE_PRIVATE).getString(Globals.USERID_KN,"");
             Log.w(Globals.TAG,"reached here ");
             try {
-                String connections = new HelperFunctions(getContext()).GetConnections("followedby", userID);
+                String connections = new HelperFunctions().GetConnections("followedby", userID,getContext());
                 JSONArray array = new JSONObject(connections).getJSONArray("data");
                 Log.w(Globals.TAG,"reached "+connections);
                 for (int i = 0; i < array.length() ; i++) {

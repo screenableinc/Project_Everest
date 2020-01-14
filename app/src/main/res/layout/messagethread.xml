@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
 
 
     android:layout_height="match_parent">
 
+
     <LinearLayout
+        android:id="@+id/parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
 
         android:weightSum="100">
+
+
 
 
         <android.support.v7.widget.CardView
@@ -24,15 +29,25 @@
 
             <ImageView
                 android:id="@+id/imageView13"
-                android:layout_width="30dp"
+                android:layout_width="15dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center|end"
                 android:layout_marginEnd="12dp"
                 app:srcCompat="@drawable/ic_menu" />
 
-            <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"
-                android:orientation="vertical"
-                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/arapey"
+                    android:text="@string/app_name"
+                    android:textColor="#FA111111"
+                    android:textStyle="bold"></TextView>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/dynamicchatview"
@@ -44,44 +59,32 @@
                     android:paddingLeft="183dp"
                     android:paddingTop="10dp"
                     android:paddingRight="183dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/arapey"
-                    android:text="@string/app_name"
-                    android:textColor="#FA111111"
-                    android:textStyle="bold"></TextView>
             </LinearLayout>
-
 
 
         </android.support.v7.widget.CardView>
 
 
+        <!--        <include-->
+        <!--            android:id="@+id/attach"-->
+        <!--            layout="@layout/attachments"-->
+        <!--            tools:visibility="gone"></include>-->
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/messages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="100" />
+            android:layout_weight="100"
+            android:background="@android:color/white"
+            android:layoutAnimation="@anim/layout_animation" />
+        <include layout="@layout/bottom_sheet"></include>
 
-<!--        <include-->
-<!--            android:id="@+id/attach"-->
-<!--            layout="@layout/attachments"-->
-<!--            tools:visibility="gone"></include>-->
         <FrameLayout
             android:id="@+id/footer_section"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/scroll_section">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorPrimaryDark">
+            android:layout_height="wrap_content">
 
-            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,18 +119,20 @@
                         android:scaleType="fitXY"
                         app:srcCompat="@drawable/ic_mic_none_black_24dp" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/watch_animation"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_weight=".5"
-                        app:srcCompat="@drawable/ic_picture" />
+                        app:lottie_autoPlay="false"
+
+
+                        app:lottie_fileName="picture_anim.json"
+                        app:lottie_loop="true"/>
                 </LinearLayout>
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="100">
 
                     <android.support.text.emoji.widget.EmojiEditText
@@ -141,14 +146,14 @@
                         android:ems="10"
                         android:imeOptions="actionSend"
                         android:inputType="textMultiLine|textPersonName"
+                        android:lineSpacingExtra="8sp"
                         android:maxHeight="300dp"
                         android:minHeight="45dp"
-                        android:paddingLeft="5dp"
+                        android:paddingLeft="35dp"
                         android:paddingTop="3dp"
-                        android:paddingRight="3dp"
+                        android:paddingEnd="28dp"
                         android:paddingBottom="3dp"
                         android:singleLine="false"
-                        android:text=""
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
 
@@ -170,6 +175,7 @@
                             android:layout_height="match_parent"
                             app:srcCompat="@drawable/ic_send_black_24dp" />
                     </FrameLayout>
+
                 </FrameLayout>
 
                 <ImageView
@@ -186,5 +192,10 @@
 
         </FrameLayout>
 
+
     </LinearLayout>
-</FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+

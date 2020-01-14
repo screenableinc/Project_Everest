@@ -107,7 +107,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             if (view.getId() == R.id.addtocircle) {
                 Log.w(Globals.TAG,"statr");
 
-                new HelperFunctions(context).new AddToCircle(add,spinKitView).execute(view.getTag().toString(),_ID);
+                new HelperFunctions().new AddToCircle(add,spinKitView).execute(view.getTag().toString(),_ID);
 //
             } else {
 

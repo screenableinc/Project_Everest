@@ -51,30 +51,30 @@ public class MessageBubble extends LinearLayout {
             @Override
             public void onLongPress(MotionEvent e) {
 //                final FrameLayout overlay = rootView.findViewById(R.id.overlay);
-                final FrameLayout scrollview = rootView.findViewById(R.id.scroll_section);
+//                final FrameLayout scrollview = rootView.findViewById(R.id.scroll_section);
 
-                scrollview.setOnTouchListener(new OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                            FrameLayout  overlay=rootView.findViewById(R.id.overlay);
-
-//                            overlay.setVisibility(GONE);
-                            scrollview.setOnTouchListener(null);
-                            return false;
-                        } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
-                            Log.w("POSITIONS", motionEvent.getX() + "");
-                            tview.animate().x(motionEvent.getX()).y(motionEvent.getY()).setDuration(300).start();
-                            return true;
-                        } else {
-//                            overlay.setVisibility(GONE);
-                            scrollview.setOnTouchListener(null);
-                        }
-
-
-                        return false;
-                    }
-                });
+//                scrollview.setOnTouchListener(new OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View view, MotionEvent motionEvent) {
+//                        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+////                            FrameLayout  overlay=rootView.findViewById(R.id.overlay);
+//
+////                            overlay.setVisibility(GONE);
+//                            scrollview.setOnTouchListener(null);
+//                            return false;
+//                        } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+//                            Log.w("POSITIONS", motionEvent.getX() + "");
+//                            tview.animate().x(motionEvent.getX()).y(motionEvent.getY()).setDuration(300).start();
+//                            return true;
+//                        } else {
+////                            overlay.setVisibility(GONE);
+//                            scrollview.setOnTouchListener(null);
+//                        }
+//
+//
+//                        return false;
+//                    }
+//                });
 //                scrollview.remove
 
 //                overlay.setVisibility(VISIBLE);

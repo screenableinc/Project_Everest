@@ -95,24 +95,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         EmojiCompat.Config config = new FontRequestEmojiCompatConfig(this,fontRequest);
         EmojiCompat.init(config);
 
-//        startActivity(new Intent(LoginActivity.this,MessageThread.class));
-//        finish();
+        startActivity(new Intent(LoginActivity.this,MessageThread.class));
+        finish();
 
 
         String status = getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE).getString("stage","");
 
-        if(status.equals("verification")){
-            startActivity(new Intent(LoginActivity.this, Verification.class));
-
-        }else if(status.equals("setup")){
-            startActivity(new Intent(LoginActivity.this, SetUp.class));
-
-
-        }else if(status.equals("loggedin")){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-
-        }
+//        if(status.equals("verification")){
+//            startActivity(new Intent(LoginActivity.this, Verification.class));
+//
+//        }else if(status.equals("setup")){
+//            startActivity(new Intent(LoginActivity.this, SetUp.class));
+//
+//
+//        }else if(status.equals("loggedin")){
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            finish();
+//
+//        }
         setContentView(R.layout.activity_login);
 
         logo=findViewById(R.id.logo);

@@ -17,6 +17,7 @@ public class Globals {
     public static String DATABASE_NAME = "everest01";
     public static String ACCESS_TOKEN_KN = "access token";
     public static String USERID_KN = "number";
+    public static int StorageRequestCode=100;
 
 
 }

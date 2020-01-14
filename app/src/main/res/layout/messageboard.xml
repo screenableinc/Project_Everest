@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="65dp"
     android:layout_marginTop="10dp"
-    android:elevation="2dp"
+    android:paddingEnd="15dp"
     android:background="@drawable/messageboardbg"
     android:clipChildren="false"
-    android:orientation="horizontal"
-    android:padding="0dp">
+    android:clipToPadding="false"
+    android:elevation="2dp"
+    android:orientation="horizontal">
 
 
     <FrameLayout
@@ -24,6 +25,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
+
 
 
             android:src="@drawable/pp"
@@ -65,14 +67,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/chattype"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/privatechat" />
-
     <TextView
         android:id="@+id/time_received"
         android:layout_width="wrap_content"
@@ -82,6 +76,22 @@
         android:layout_gravity="bottom|center"
         android:text="12:03"
         android:textColor="@color/colorPrimaryDark" />
+
+    <FrameLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@drawable/message_count_bg">
+
+        <TextView
+            android:id="@+id/message_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:text="3"
+            android:textColor="@android:color/white" />
+    </FrameLayout>
 
 
 </LinearLayout>

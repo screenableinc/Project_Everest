@@ -1,6 +1,8 @@
 package reply_cirlce.screenable.project_everest;
 
+import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -37,20 +40,21 @@ public class TheWallAdapter extends RecyclerView.Adapter<TheWallAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 //        make request to load images
+
         try {
-            String connections = new HelperFunctions(context).new GetCanvas(arrayList.get(i).toString()).execute().get();
-            JSONObject response = new JSONObject(connections);
-            JSONArray array = response.getJSONArray("canvasdata");
-            viewHolder.username.setText( response.getJSONObject("userdata").getString("username"));
-            Picasso.get().load(response.getJSONObject("userdata").getString("profile_picture_url_lg")).into(viewHolder.profile_pic);
-            ArrayList canvas = new ArrayList<>();
-            for (int j = 0; j < array.length() ; j++) {
-
-                Log.w(Globals.TAG,"Here "+array.getString(j));
-
-                canvas.add(array.get(j));
-            }
-            viewHolder.stack.setAdapter(new ChapterVIewAdapter(canvas,context));
+            new HelperFunctions().new GetCanvas(arrayList.get(i).toString(),viewHolder,context).execute();
+////            JSONObject response = new JSONObject(connections);
+//            JSONArray array = response.getJSONArray("canvasdata");
+//            viewHolder.username.setText( response.getJSONObject("userdata").getString("username"));
+//            Picasso.get().load(response.getJSONObject("userdata").getString("profile_picture_url_lg")).into(viewHolder.profile_pic);
+//            ArrayList canvas = new ArrayList<>();
+//            for (int j = 0; j < array.length() ; j++) {
+//
+//                Log.w(Globals.TAG,"Here "+array.getString(j));
+//
+//                canvas.add(array.get(j));
+//            }
+//            viewHolder.stack.setAdapter(new ChapterVIewAdapter(canvas,context));
         }catch (Exception e){
 
             e.printStackTrace();
@@ -88,6 +92,40 @@ public class TheWallAdapter extends RecyclerView.Adapter<TheWallAdapter.ViewHold
         }
         @Override
         public void onClick(View view) {
+
+        }
+    }
+    public class LoadData extends AsyncTask<String,Integer,String>{
+        String target;
+        public LoadData(String target, ImageView imageView){
+            this.target=target;
+        }
+        @Override
+        protected String doInBackground(String... strings) {
+            String[] params={"target"};String[] values={target};
+            try {
+                String accessApi = new AccessApi().sendGET(Globals.urlGetCanvas, params, values);
+                JSONObject response = new JSONObject(accessApi);
+                if(response.getBoolean("success")){
+
+                    Log.w(Globals.TAG,response.toString());
+                    return response.toString();
+
+                }else {
+                    return null;
+                }
+
+            }catch (NetworkErrorException e){
+//                TODO::Exception
+                e.printStackTrace();
+                return null;
+            }catch (Exception e){
+//                TODO here also
+                e.printStackTrace();
+                return null;
+            }
+
+
 
         }
     }
