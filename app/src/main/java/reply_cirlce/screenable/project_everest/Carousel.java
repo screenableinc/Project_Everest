@@ -1,9 +1,8 @@
 package reply_cirlce.screenable.project_everest;
 
 import android.content.Context;
-import android.gesture.Gesture;
-import android.graphics.Canvas;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -11,10 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 
-import static android.support.text.emoji.EmojiCompat.init;
+import static androidx.emoji.text.EmojiCompat.init;
 
 public class Carousel extends FrameLayout implements GestureDetector.OnGestureListener {
     int child_count;

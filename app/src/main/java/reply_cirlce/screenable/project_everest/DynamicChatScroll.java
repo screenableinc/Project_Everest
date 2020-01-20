@@ -1,11 +1,10 @@
 package reply_cirlce.screenable.project_everest;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
-import android.widget.HorizontalScrollView;
 
 public class DynamicChatScroll extends LinearLayoutManager {
     private float scaleDownBy = 0.66f;

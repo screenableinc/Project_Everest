@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,7 +64,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             viewHolder.username.setText(username);
             viewHolder.nameandusername.setTag(items.get(i).toString());
             viewHolder.add.setTag(username);
-            viewHolder.add.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_circle_add));
+            viewHolder.add.setText("Invite");
+//            viewHolder.add.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_circle_add));
             Picasso.get().load(profile_picture_url).into(viewHolder.circleImageView);
 
 
@@ -83,7 +84,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         CircleImageView circleImageView;
         TextView name;
         TextView username;
-        ImageView add;
+        Button add;
 //        TODO remember to show diffrent icons for already added user
 
         View nameandusername;
@@ -125,7 +126,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
                     _username = data.getString("UserID");
                     _name = data.getString("fullname");
                     intent.putExtra("UserID", _username);
-                    intent.putExtra("profile_pic_url_lg", pic_url);
+                    intent.putExtra("profile_pic_url", pic_url);
                     intent.putExtra("fullname", _name);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -133,6 +134,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, Pair.create((View) name, "fullname"), Pair.create((View) username, "username"));
+//                ActivityOptions options = ActivityOptions
+//                        .makeSceneTransitionAnimation(activity, (View) name, "fullname");
                 activity.startActivity(intent, options.toBundle());
 
 

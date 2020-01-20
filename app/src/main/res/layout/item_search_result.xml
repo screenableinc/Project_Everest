@@ -1,80 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_margin="10dp"
+
+    app:cardCornerRadius="4dp"
     android:orientation="horizontal">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:transitionName="picture"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="15dp"
-        android:src="@drawable/ic_person_black_24dp"
-        app:civ_border_color="@color/colorPrimary"
-        app:civ_border_width="0.5dp" />
-
-    <FrameLayout
-        android:id="@+id/nameandusername"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".75">
+        android:padding="10dp"
+        android:orientation="vertical">
 
-        <LinearLayout
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_person_black_24dp"
+            android:transitionName="picture"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_width="0.5dp" />
+
+        <FrameLayout
+            android:id="@+id/nameandusername"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingTop="5dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Jessica Jones"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:transitionName="fullname" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/username"
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:text="Jessica Jones"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:transitionName="fullname" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:text="\@jessica_jones69"
+                    android:textSize="10sp"
+                    android:transitionName="username" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="100">
+
+            <Button
+                android:id="@+id/addtocircle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="\@jessica_jones69"
-                android:textSize="12sp"
-                android:transitionName="username" />
+                android:layout_gravity="center|end"
+                android:background="@color/circle"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:padding="4dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="5dp"
+                android:text="Invite"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
 
-        </LinearLayout>
-    </FrameLayout>
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/search_indicator"
+                style="@style/SpinKitView.DoubleBounce"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+                android:visibility="gone"
+                app:SpinKit_Color="@color/colorAccent" />
+        </FrameLayout>
 
-        <ImageView
-            android:id="@+id/addtocircle"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:padding="5dp"
-            app:srcCompat="@drawable/addtocircle" />
+    </LinearLayout>
 
-        <com.github.ybq.android.spinkit.SpinKitView
-            android:id="@+id/search_indicator"
-            style="@style/SpinKitView.DoubleBounce"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-
-            android:visibility="gone"
-            app:SpinKit_Color="@color/colorAccent" />
-    </FrameLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

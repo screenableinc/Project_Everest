@@ -1,53 +1,52 @@
 package reply_cirlce.screenable.project_everest;
 
-import android.Manifest;
 import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.text.emoji.widget.EmojiEditText;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.dynamicanimation.animation.DynamicAnimation;
+import androidx.dynamicanimation.animation.SpringAnimation;
+import androidx.dynamicanimation.animation.SpringForce;
+import androidx.emoji.widget.EmojiEditText;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.util.DisplayMetrics;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 //import com.vanniktech.emoji.EmojiEditText;
 //import com.vanniktech.emoji.EmojiPopup;
 
-import org.json.JSONArray;
+import com.airbnb.lottie.LottieAnimationView;
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
+
 import org.json.JSONObject;
 
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-
-import static java.lang.Float.NaN;
 
 public class MessageThread extends AppCompatActivity {
     MessagesAdapter messagesAdapter;
@@ -58,44 +57,77 @@ public class MessageThread extends AppCompatActivity {
     View parent;
     ThumbnailAdapter adapter;
     ArrayList<Long> mediaThumbIDS;
+    private Socket mSocket;
+
+
+    private void connectSocket(IO.Options options){
+        try{
+            Log.w(Globals.TAG,"should have started socket");
+
+            mSocket= IO.socket(Globals.ip+"/", options).connect();
+
+
+        }catch (URISyntaxException e){
+            e.printStackTrace();
+        }
+    }
+    //    LinearLayout ExpandingMediaHolder;
 //    LinearLayout bottomSheetLayout;
+
+//    TODO:: move socket functions to services
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messagethread);
+        Bundle bundle = getIntent().getExtras();
+        final String user_id = bundle.getString(Globals.USER_ID_KN);
+        String pic_url = bundle.getString(Globals.PROFILE_PIC_URL_KN);
+
+//        get own user_id
+        final String own_user_id = getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE).getString("number",null);
+        String[] arr = {user_id,own_user_id};
+
+        Arrays.sort(arr);
+        final String chat_id = arr[0]+"_"+arr[1];
+        IO.Options options = new IO.Options();
+        options.query="chat_id="+chat_id;
+        connectSocket(options);
+
 
 //        start emoji keyboard code
 //        EmojiEditText emojiEditText = findViewById(R.id.editText);
         parent = findViewById(R.id.parent);
 //        parent.getLayoutParams().height=1344;
+        final View ExpandingMediaHolder=findViewById(R.id.bottom_sheet);
 
 
-        final FrameLayout peek = findViewById(R.id.peek);
-//        final BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-//        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//            @Override
-//            public void onStateChanged(@NonNull View view, int i) {
-//                if(i==BottomSheetBehavior.STATE_EXPANDED){
-//                    peek.setVisibility(View.VISIBLE);
-//                    if (ContextCompat.checkSelfPermission(MessageThread.this,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//                        ActivityCompat.requestPermissions(MessageThread.this,
-//                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                100);
-//                    }else {
-////            permission already granted load images
-//                        loadImages();
-//
-//                    }
-//                }else{
-//                    peek.setVisibility(View.INVISIBLE);
-//                }
-//            }
-//
-//            @Override
-//            public void onSlide(@NonNull View view, float v) {
-//                adjustViews(v);
-//            }
-//        });
+        final LottieAnimationView media = findViewById(R.id.media);
+
+        media.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                animate open
+
+                if(ExpandingMediaHolder.getLayoutParams().height!=0){
+                    float progress = media.getProgress();
+                    ValueAnimator valueAnimator = ValueAnimator.ofFloat(-progress,0 ).setDuration((long) ( media.getDuration()* progress));
+                    valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+
+                            media.setProgress(Math.abs((float)animation.getAnimatedValue()));
+                        }
+                    });
+                    valueAnimator.start();
+                }else {
+                    media.playAnimation();
+                }
+                expandMediaHolder(ExpandingMediaHolder);
+            }
+        });
 
         final View my_message = findViewById(R.id.my_message);
         final ImageView insert = findViewById(R.id.insert);
@@ -147,29 +179,44 @@ public class MessageThread extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                populateList(HelperFunctions.removeStartandEndSpaces(message.getText().toString()),"21:14");
-                message.setText("");
-//                if(!message.getText().toString().equals("")){
-//                    long unixTime = System.currentTimeMillis() / 1000L;
-//                    SharedPreferences preferences =getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE);
-//                    String number = preferences.getString("number","260954806566");
-////                    TODO::Add if clause to log out and delete data if number==null
-//                    if(number==null){
-//
-//                    }
-//                    String[][] req_body = {{"message_id",""},{"text",message.getText().toString()},
-//                            {"time_received",""},
-//                            {"status",""},{"type",""},
-//                            {"sender",number},{"parent_message_id",""},
-//                            {"media_duration",""},{"media_duration",""},
-//                            {"media_url",""},{"media_mime_type",""},
-//                            {"chat_id",""},{"has_attachments",""},{"recipient_count",""},
-//                            {"recipients",""},
-//                            {"time_sent",unixTime+""}};
-//
-//                    new SendMessage().execute(req_body);
-//
-//                }
+                String msg = message.getText().toString();
+
+                if(!msg.isEmpty()){
+                    long unixTime = System.currentTimeMillis();
+
+
+
+                SimpleDateFormat sdf = new SimpleDateFormat("MM dd,yyyy-HH:mm aa");
+
+                Date date = new Date(unixTime);
+                String date_time = sdf.format(date).split("-",-1)[1];
+                Log.w(Globals.TAG,mSocket.toString());
+
+
+
+
+//                    TODO::Add if clause to log out and delete data if number==null
+                    if(own_user_id!=null){
+                        try{
+                            populateList(HelperFunctions.removeStartandEndSpaces(msg),date_time);
+                            message.setText("");
+                            String message_id = unixTime+chat_id;
+                            JSONObject message_details=prepareMessage(message_id,msg,unixTime,"unread","text",own_user_id,null,00000000,null,null,chat_id,false,user_id);
+
+                            mSocket.emit(chat_id,message_details);
+                            mSocket.on(own_user_id, new Emitter.Listener() {
+                                @Override
+                                public void call(Object... args) {
+//                                         save to database and notify dataset change
+
+                                }
+                            });
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
             }
         });
         View rootView = findViewById(R.id.root);
@@ -191,17 +238,58 @@ public class MessageThread extends AppCompatActivity {
 
 
 
-//        my_message.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                Log.w("TOUCHLISTEN", motionEvent.toString());
-//                return false;
-//            }
-//        });
-
-//        message thread animations
 
 
+
+    }
+
+    private JSONObject prepareMessage(String message_id, String text, long time_sent, String status, String type, String sender, @Nullable String parentMessage_id,
+    @Nullable long media_duration, @Nullable String media_url, @Nullable String media_mime_type, @NonNull String chat_id, boolean has_attachments, @NonNull String to) throws Exception{
+        JSONObject object=  new JSONObject();
+        object.put("message_id",message_id);
+        object.put("text",text);
+        object.put("recipient",to);
+        object.put("status",status);
+        object.put("type",type);
+        object.put("sender",sender);
+        object.put("parent_message_id",parentMessage_id);object.put("media_duration",media_duration);
+        object.put("media_url",media_url);object.put("media_mime_type",media_mime_type);object.put("chat_id",chat_id);object.put("has_attachments",has_attachments);
+        object.put("time_sent",time_sent);
+
+//        put into database
+        return object;
+
+    }
+
+
+    private void expandMediaHolder(final View ExpandingMediaHolder){
+        int toHeight;
+        Log.w(Globals.TAG,parent.getLayoutParams().height+"haha");
+
+        if(ExpandingMediaHolder.getLayoutParams().height==0){
+
+            toHeight=400;
+
+        }else {
+            toHeight=0;
+
+        }
+        final ValueAnimator widthAnimator = ValueAnimator.ofInt(ExpandingMediaHolder.getLayoutParams().height, toHeight);
+        widthAnimator.setDuration(200);
+        widthAnimator.setInterpolator(new DecelerateInterpolator());
+        widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                ExpandingMediaHolder.getLayoutParams().height = (int) animation.getAnimatedValue();
+                ExpandingMediaHolder.requestLayout();
+                if((int)animation.getAnimatedValue()==ExpandingMediaHolder.getLayoutParams().height){
+                    loadImages();
+                }
+            }
+
+        });
+
+        widthAnimator.start();
     }
     public void loadImages(){
 //        check permission first

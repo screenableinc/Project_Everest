@@ -27,9 +27,9 @@ import java.util.HashMap;
 
 
 public class HelperFunctions {
-    Context context;
+
     SpinKitView addingIndicator;
-    ImageView add;
+    View add;
     public Bitmap Thumnnail(Context context, Long id){
         Bitmap bitmap = MediaStore.Images.Thumbnails.getThumbnail(context.getContentResolver(), id, MediaStore.Images.Thumbnails.MINI_KIND, (BitmapFactory.Options)null);
         return bitmap;
@@ -52,11 +52,13 @@ public class HelperFunctions {
     public class GetCanvas extends AsyncTask<String,Integer,String>{
         String target;
         TheWallAdapter.ViewHolder viewHolder;
+        Context context;
 
         public GetCanvas(String target, TheWallAdapter.ViewHolder viewHolder,Context context){
 //            this.connectionType=followedByOrFollowed;
             this.target=target;
             this.viewHolder=viewHolder;
+            this.context=context;
         }
 
         @Override
@@ -143,7 +145,7 @@ public class HelperFunctions {
 
     }
     public class AddToCircle extends AsyncTask<String,Integer,String>{
-        public AddToCircle(ImageView addIcon,SpinKitView spinKitView){
+        public AddToCircle(View addIcon,SpinKitView spinKitView){
             add=addIcon;
             addingIndicator=spinKitView;
         }

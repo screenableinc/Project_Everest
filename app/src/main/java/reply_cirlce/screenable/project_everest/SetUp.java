@@ -4,7 +4,7 @@ import android.accounts.NetworkErrorException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Set;
 
 public class SetUp extends AppCompatActivity {
     Button finalize;

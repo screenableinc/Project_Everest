@@ -78,8 +78,8 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <FrameLayout
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
         android:layout_gravity="center"
         android:background="@drawable/message_count_bg">
 
@@ -90,7 +90,8 @@
             android:layout_gravity="center"
 
             android:text="3"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
     </FrameLayout>
 
 

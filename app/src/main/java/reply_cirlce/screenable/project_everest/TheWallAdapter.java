@@ -3,20 +3,15 @@ package reply_cirlce.screenable.project_everest;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

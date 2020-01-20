@@ -1,23 +1,13 @@
 package reply_cirlce.screenable.project_everest;
 
-import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.view.GestureDetectorCompat;
+import androidx.core.view.GestureDetectorCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.jar.Attributes;
 
 public class MessageBubble extends LinearLayout {
 

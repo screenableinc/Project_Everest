@@ -12,11 +12,15 @@
 //import android.os.Bundle;
 //import android.provider.MediaStore;
 //import android.provider.OpenableColumns;
-//import android.support.v4.content.ContextCompat;
-//import android.support.v7.app.AlertDialog;
-//import android.support.v7.app.AppCompatActivity;
+//
+//import androidx.appcompat.app.AlertDialog;
+//
 //import android.util.Log;
 //import android.widget.Toast;
+//
+//import androidx.appcompat.app.AppCompatActivity;
+//import androidx.core.content.ContextCompat;
+//import androidx.core.content.FileProvider;
 //
 //import com.karumi.dexter.Dexter;
 //import com.karumi.dexter.MultiplePermissionsReport;
@@ -28,7 +32,7 @@
 //import java.io.File;
 //import java.util.List;
 //
-//import static android.support.v4.content.FileProvider.getUriForFile;
+//
 //
 //public class ImagePickerActivity extends AppCompatActivity {
 //    private static final String TAG = ImagePickerActivity.class.getSimpleName();
@@ -60,6 +64,7 @@
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_image_picker);
+//
 //
 //        Intent intent = getIntent();
 //        if (intent == null) {

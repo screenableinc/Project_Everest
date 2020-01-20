@@ -3,7 +3,7 @@ package reply_cirlce.screenable.project_everest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public class AccessDB{
     Context context;

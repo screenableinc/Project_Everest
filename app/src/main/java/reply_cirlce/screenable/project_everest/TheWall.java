@@ -3,11 +3,11 @@ package reply_cirlce.screenable.project_everest;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import link.fls.swipestack.SwipeStack;
 
 
 public class TheWall extends Fragment {
@@ -35,7 +32,7 @@ public class TheWall extends Fragment {
 
         View rootView = inflater.inflate(R.layout.thewall, container, false);
         recyclerView= rootView.findViewById(R.id.wall);
-        new LoadWall().execute();
+//        new LoadWall().execute();
 //        SwipeStack swipeStack = (SwipeStack) rootView.findViewById(R.id.swipeStack);
 //        List<String> mData=new ArrayList<>();
 //        mData.add("http://www.screenableinc.com/everest/10.jpg");

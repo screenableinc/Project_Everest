@@ -7,12 +7,12 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.text.emoji.EmojiCompat;
-import android.support.text.emoji.FontRequestEmojiCompatConfig;
-import android.support.v4.provider.FontRequest;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.emoji.text.EmojiCompat;
+import androidx.emoji.text.FontRequestEmojiCompatConfig;
+import androidx.core.provider.FontRequest;
+import androidx.appcompat.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
@@ -24,20 +24,15 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hbb20.CountryCodePicker;
@@ -95,24 +90,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         EmojiCompat.Config config = new FontRequestEmojiCompatConfig(this,fontRequest);
         EmojiCompat.init(config);
 
-        startActivity(new Intent(LoginActivity.this,MessageThread.class));
-        finish();
+//        startActivity(new Intent(LoginActivity.this,MessageThread.class));
+//        finish();
 
 
         String status = getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE).getString("stage","");
 
-//        if(status.equals("verification")){
-//            startActivity(new Intent(LoginActivity.this, Verification.class));
-//
-//        }else if(status.equals("setup")){
-//            startActivity(new Intent(LoginActivity.this, SetUp.class));
-//
-//
-//        }else if(status.equals("loggedin")){
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
-//
-//        }
+        if(status.equals("verification")){
+            startActivity(new Intent(LoginActivity.this, Verification.class));
+
+        }else if(status.equals("setup")){
+            startActivity(new Intent(LoginActivity.this, SetUp.class));
+
+
+        }else if(status.equals("loggedin")){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+
+        }
         setContentView(R.layout.activity_login);
 
         logo=findViewById(R.id.logo);
