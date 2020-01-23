@@ -73,7 +73,7 @@ public class SetUp extends AppCompatActivity {
                     //                    create database
                     new DatabaseHelper(getApplicationContext());
                     editor.putString("stage","loggedin");
-                    editor.putString("username",u_name);
+                    editor.putString(Globals.USERNAME_KN,u_name);
                     editor.commit();
 //                    send another request to get connections
 

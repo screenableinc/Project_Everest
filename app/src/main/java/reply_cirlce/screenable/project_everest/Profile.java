@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -52,14 +54,15 @@ public class Profile extends AppCompatActivity {
         final String pic_url = bundle.getString(Globals.PROFILE_PIC_URL_KN);
         String name=bundle.getString(Globals.FULLNAME_KN);
         final String user_id = bundle.getString(Globals.USER_ID_KN);
-        Log.w(Globals.TAG,user_id+"_quavo_"+pic_url);
+        final String user_name = bundle.getString(Globals.USERNAME_KN);
+
         TextView _username=findViewById(R.id.username);
         Picasso.get().load(pic_url).transform(new BlurTransformation(Profile.this,12,1)).into(imageview);
 
         recyclerView = findViewById(R.id.profile_activity_canvas);
         new LoadProfileCanvas().execute(user_id);
         TextView _name = findViewById(R.id.name);
-        _name.setText(name);_username.setText(user_id);
+        _name.setText(name);_username.setText(user_name);
         CircleImageView circleImageView = findViewById(R.id.profile_image);
         ImageView dm = findViewById(R.id.dm);
         dm.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +70,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Profile.this, MessageThread.class);
                 intent.putExtra(Globals.USER_ID_KN,user_id);
+                intent.putExtra(Globals.USERNAME_KN,user_name);
                 intent.putExtra(Globals.PROFILE_PIC_URL_KN,pic_url);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(Profile.this).toBundle());
 
@@ -122,9 +126,9 @@ public class Profile extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 //            TODO:::null check on items list
-            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-            SpaceItemDecoration decoration = new SpaceItemDecoration(16);
-            recyclerView.addItemDecoration(decoration);
+            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+
+
             adapter=new ProfileCanvasAdapter(Profile.this,items);
             recyclerView.setAdapter(adapter);
 

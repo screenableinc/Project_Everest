@@ -116,16 +116,18 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 //            pass username, name,profile_pic_url so as to parse data on this side
                 String tag = view.getTag().toString();
                 String pic_url;
-                String _username;
+                String _user_id;
                 String _name;
+                String _username;
                 try {
                     JSONObject data = new JSONObject(tag);
                     Log.w(Globals.TAG, "should show " + view.toString() + data);
                     pic_url = data.getString("profile_picture_url_lg");
-
-                    _username = data.getString("UserID");
+                    _username=data.getString("username");
+                    _user_id = data.getString("UserID");
                     _name = data.getString("fullname");
-                    intent.putExtra("UserID", _username);
+                    intent.putExtra("UserID", _user_id);
+                    intent.putExtra(Globals.USERNAME_KN,_username);
                     intent.putExtra("profile_pic_url", pic_url);
                     intent.putExtra("fullname", _name);
                 } catch (JSONException e) {

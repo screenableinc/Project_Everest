@@ -24,15 +24,18 @@ public class FeedReaderContract {
         public static final String CONNECTIONS_TABLE="connections";
 
 
-        public static final String FROM = "from";
+        public static final String FROM = "sender";
+            public static final String TO = "recipient";
 
 
-        public static final String PARENT_MESSAGE = "parent_message_id";
+
+            public static final String PARENT_MESSAGE = "parent_message_id";
         public static final String MEDIA_URL="media_url";
 
         public static final String CANVAS_TABLE_NAME = "canvas";
 
         public static final String TIMESTAMP = "timestamp";
+        public static final String TIME_SENT = "time_sent";
 //        seen is a device specific boolean
         public static final String SEEN="seen";
 

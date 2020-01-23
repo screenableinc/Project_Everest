@@ -10,6 +10,11 @@
     <color name="circle">#08A2FE</color>
     <color name="gradientStart">#8E2DE2</color>
     <color name="gradientEnd">#4A00E0</color>
+    <color name="pending">#D1D1D1</color>
+
+    <color name="sent">#818181</color>
+    <color name="received">#66C800FF</color>
+    <color name="read">#C800FF</color>
 </resources>
 
 

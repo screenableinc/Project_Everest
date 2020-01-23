@@ -46,10 +46,11 @@
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center"
                     android:clipToPadding="false"
-                    android:paddingLeft="183dp"
+                    android:paddingLeft="15dp"
                     android:paddingTop="10dp"
-                    android:paddingRight="183dp" />
+                    android:paddingRight="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -152,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100">
 
-                    <androidx.emoji.widget.EmojiEditText
+                    <EditText
                         android:id="@+id/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

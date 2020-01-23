@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 //import com.vanniktech.emoji.EmojiEditText;
 //import com.vanniktech.emoji.EmojiPopup;
@@ -83,12 +84,15 @@ public class MessageThread extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messagethread);
         Bundle bundle = getIntent().getExtras();
-        final String user_id = bundle.getString(Globals.USER_ID_KN);
+//        final String user_id = bundle.getString(Globals.USER_ID_KN);
+        final String username=bundle.getString(Globals.USERNAME_KN);
         String pic_url = bundle.getString(Globals.PROFILE_PIC_URL_KN);
 
 //        get own user_id
-        final String own_user_id = getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE).getString("number",null);
-        String[] arr = {user_id,own_user_id};
+        final String own_username = getSharedPreferences(Globals.SHARED_PREF_LOGIN,MODE_PRIVATE).getString(Globals.USERNAME_KN,null);
+
+        Log.w(Globals.TAG,own_username+" "+ username);
+        String[] arr = {username,own_username};
 
         Arrays.sort(arr);
         final String chat_id = arr[0]+"_"+arr[1];
@@ -196,21 +200,40 @@ public class MessageThread extends AppCompatActivity {
 
 
 //                    TODO::Add if clause to log out and delete data if number==null
-                    if(own_user_id!=null){
+                    if(own_username!=null){
                         try{
                             populateList(HelperFunctions.removeStartandEndSpaces(msg),date_time);
                             message.setText("");
                             String message_id = unixTime+chat_id;
-                            JSONObject message_details=prepareMessage(message_id,msg,unixTime,"unread","text",own_user_id,null,00000000,null,null,chat_id,false,user_id);
+                            String[] columns={FeedReaderContract.FeedEntry._id, FeedReaderContract.FeedEntry.TEXT
+                                    , FeedReaderContract.FeedEntry.TIME_SENT
+                                    , FeedReaderContract.FeedEntry.STATUS, FeedReaderContract.FeedEntry.TYPE
+                                    , FeedReaderContract.FeedEntry.TO, FeedReaderContract.FeedEntry.PARENT_MESSAGE
+                                    , FeedReaderContract.FeedEntry.MEDIA_DURATION, FeedReaderContract.FeedEntry.MEDIA_URL,
+                                    FeedReaderContract.FeedEntry.MEDIA_MIME_TYPE, FeedReaderContract.FeedEntry.CHAT_ID,  FeedReaderContract.FeedEntry.FROM};
+                            String[] values={message_id,msg,unixTime+"",Globals.MESSAGE_STATUS_PENDING,"text",username,null,"",null,null,chat_id,own_username};
+                            JSONObject message_details=prepareMessage(message_id,msg,unixTime,Globals.MESSAGE_STATUS_PENDING,"text",own_username,null,00000000,null,null,chat_id,username);
 
-                            mSocket.emit(chat_id,message_details);
-                            mSocket.on(own_user_id, new Emitter.Listener() {
-                                @Override
-                                public void call(Object... args) {
-//                                         save to database and notify dataset change
+                            boolean saveToDB = new AccessDB(MessageThread.this).Push(FeedReaderContract.FeedEntry.MESSAGE_TABLE_NAME
+                            ,columns,values);
 
-                                }
-                            });
+                            String[] chat_columns={FeedReaderContract.FeedEntry.CHAT_ID, FeedReaderContract.FeedEntry.LAST_MESSAGE};
+
+                            String[] chat_values={chat_id,message_id};
+                            boolean saveToChatTable = new AccessDB(MessageThread.this).Push(FeedReaderContract.FeedEntry.CHAT_TABLE_NAME,chat_columns,chat_values);
+                            if(saveToDB && saveToChatTable){
+                                mSocket.emit(chat_id,message_details);
+                                mSocket.on(own_username, new Emitter.Listener() {
+                                    @Override
+                                    public void call(Object... args) {
+//                                         listen for response
+
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(MessageThread.this,"something went wrong, Try again",Toast.LENGTH_LONG).show();
+                            }
+
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -244,7 +267,7 @@ public class MessageThread extends AppCompatActivity {
     }
 
     private JSONObject prepareMessage(String message_id, String text, long time_sent, String status, String type, String sender, @Nullable String parentMessage_id,
-    @Nullable long media_duration, @Nullable String media_url, @Nullable String media_mime_type, @NonNull String chat_id, boolean has_attachments, @NonNull String to) throws Exception{
+    @Nullable long media_duration, @Nullable String media_url, @Nullable String media_mime_type, @NonNull String chat_id, @NonNull String to) throws Exception{
         JSONObject object=  new JSONObject();
         object.put("message_id",message_id);
         object.put("text",text);
@@ -253,7 +276,7 @@ public class MessageThread extends AppCompatActivity {
         object.put("type",type);
         object.put("sender",sender);
         object.put("parent_message_id",parentMessage_id);object.put("media_duration",media_duration);
-        object.put("media_url",media_url);object.put("media_mime_type",media_mime_type);object.put("chat_id",chat_id);object.put("has_attachments",has_attachments);
+        object.put("media_url",media_url);object.put("media_mime_type",media_mime_type);object.put("chat_id",chat_id);
         object.put("time_sent",time_sent);
 
 //        put into database

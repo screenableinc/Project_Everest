@@ -27,7 +27,8 @@
             android:lineSpacingExtra="3sp"
             android:padding="15dp"
             android:text="@string/really_long_message"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -40,6 +41,7 @@
 
         android:padding="10dp"
         android:text="00:00"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="10sp" />
 
 </reply_cirlce.screenable.project_everest.MessageBubble>

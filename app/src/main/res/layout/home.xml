@@ -25,10 +25,11 @@
             android:textStyle="bold" />
     </FrameLayout>
 
-    <include
-        layout="@layout/messageboard"
-        android:clipChildren="false"
-        android:clipToPadding="false"></include>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chats"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false" />
 
     <!--<android.support.v7.widget.RecyclerView-->
     <!--android:id="@+id/my_recycler_view"-->

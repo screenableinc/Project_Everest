@@ -43,7 +43,7 @@ public class ProfileCanvasAdapter extends RecyclerView.Adapter<ProfileCanvasAdap
     public void onBindViewHolder(ProfileCanvasAdapter.ViewHolder viewHolder, int i) {
 //        loop through and show results
         try{
-            Log.w(Globals.TAG,"should have shown: "+items.get(i));
+
             JSONObject object = (JSONObject) items.get(i);
 //            String username = object.getString("UserID");
 //            String name = object.getString("fullname");
